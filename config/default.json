@@ -1,0 +1,11 @@
+{
+  "$comment": "Default configuration profile. Loaded for all topics unless a topic-specific config overrides it. See config/_schema-config.json for field descriptions.",
+  "repetition_weight": 0.4,
+  "min_interval_days": 1,
+  "mastery_threshold": 0.8,
+  "session_length": 10,
+  "difficulty_adjustment": true,
+  "difficulty_ramp_rate": 0.2,
+  "starting_difficulty": 2,
+  "low_mastery_boost": 0.3
+}

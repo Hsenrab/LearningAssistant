@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$comment": "Schema for a LearningAssistant learning plan file. Each file represents one topic and organises content into a 3-level hierarchy: Module > Lesson > Concept.",
+  "type": "object",
+  "required": ["topic_slug", "title", "description", "created_at", "updated_at", "modules"],
+  "properties": {
+    "topic_slug": {
+      "type": "string",
+      "description": "Unique identifier for the topic. Lowercase, hyphen-separated. Must match the filename (topic-<slug>.json) and the corresponding files in questions/ and progress/.",
+      "example": "kubernetes-basics"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title of the topic.",
+      "example": "Kubernetes Basics"
+    },
+    "description": {
+      "type": "string",
+      "description": "One-paragraph overview of the topic.",
+      "example": "An introduction to Kubernetes covering core objects, architecture, and common workflows."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this plan was first created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this plan was last modified."
+    },
+    "modules": {
+      "type": "array",
+      "description": "Top-level groupings within the topic. Each module covers a broad area.",
+      "items": {
+        "type": "object",
+        "required": ["module_id", "title", "description", "lessons"],
+        "properties": {
+          "module_id": {
+            "type": "string",
+            "description": "Unique identifier within this plan. Convention: M01, M02, …",
+            "example": "M01"
+          },
+          "title": {
+            "type": "string",
+            "description": "Short title of the module.",
+            "example": "Core Architecture"
+          },
+          "description": {
+            "type": "string",
+            "description": "What this module covers.",
+            "example": "The building blocks of a Kubernetes cluster: control plane, nodes, and networking."
+          },
+          "lessons": {
+            "type": "array",
+            "description": "Focused subjects within this module.",
+            "items": {
+              "type": "object",
+              "required": ["lesson_id", "title", "description", "concepts"],
+              "properties": {
+                "lesson_id": {
+                  "type": "string",
+                  "description": "Unique identifier within the module. Convention: M01-L01, M01-L02, …",
+                  "example": "M01-L01"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Short title of the lesson.",
+                  "example": "The Control Plane"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "What this lesson covers.",
+                  "example": "The components that manage cluster state: kube-apiserver, etcd, kube-scheduler, and controller-manager."
+                },
+                "concepts": {
+                  "type": "array",
+                  "description": "The smallest teachable units. Each concept maps to one or more questions in the question bank.",
+                  "items": {
+                    "type": "object",
+                    "required": ["concept_id", "title", "description"],
+                    "properties": {
+                      "concept_id": {
+                        "type": "string",
+                        "description": "Unique identifier within the lesson. Convention: M01-L01-C01, …",
+                        "example": "M01-L01-C01"
+                      },
+                      "title": {
+                        "type": "string",
+                        "description": "Short name of the concept.",
+                        "example": "kube-apiserver"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "A concise explanation of the concept — what it is and why it matters.",
+                        "example": "The kube-apiserver is the front-end for the Kubernetes control plane. It exposes the Kubernetes API and is the only component that interacts directly with etcd."
+                      },
+                      "prerequisites": {
+                        "type": "array",
+                        "items": { "type": "string" },
+                        "description": "Optional list of concept_ids that should be understood before tackling this concept.",
+                        "example": ["M01-L01-C01"]
+                      },
+                      "resources": {
+                        "type": "array",
+                        "description": "Optional list of reference materials (links, book chapters, etc.).",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "label": { "type": "string" },
+                            "url": { "type": "string" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

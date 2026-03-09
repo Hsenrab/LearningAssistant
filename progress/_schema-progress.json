@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$comment": "Schema for a LearningAssistant progress file. Each file tracks session history and derived mastery scores for one topic.",
+  "type": "object",
+  "required": ["topic_slug", "concept_mastery", "sessions"],
+  "properties": {
+    "topic_slug": {
+      "type": "string",
+      "description": "Must match the topic_slug in the corresponding plans/ and questions/ files.",
+      "example": "kubernetes-basics"
+    },
+    "overall_mastery": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Weighted average mastery across all concepts in the topic. Updated after each session. 0.0 = no knowledge demonstrated, 1.0 = fully mastered."
+    },
+    "concept_mastery": {
+      "type": "object",
+      "description": "Map of concept_id → mastery score (0.0–1.0). Updated after each session based on the user's recent accuracy on questions for that concept.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["score", "last_updated"],
+        "properties": {
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Current mastery estimate. Scores above the config mastery_threshold are considered 'mastered'."
+          },
+          "last_updated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When this score was last recalculated."
+          },
+          "times_seen": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Total number of questions on this concept that have been presented to the user."
+          },
+          "times_correct": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Total number of correct answers on questions for this concept."
+          }
+        }
+      }
+    },
+    "sessions": {
+      "type": "array",
+      "description": "Chronological log of every learning session.",
+      "items": {
+        "type": "object",
+        "required": ["session_id", "started_at", "ended_at", "questions_asked"],
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "description": "Unique identifier for this session. Suggested format: <topic_slug>-S<YYYYMMDD>-<counter>.",
+            "example": "kubernetes-basics-S20260101-001"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 timestamp when this session began."
+          },
+          "ended_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 timestamp when this session ended."
+          },
+          "questions_asked": {
+            "type": "array",
+            "description": "Ordered list of questions presented during this session.",
+            "items": {
+              "type": "object",
+              "required": ["question_id", "concept_id", "user_answer", "correct", "asked_at"],
+              "properties": {
+                "question_id": {
+                  "type": "string",
+                  "description": "References a question in the questions/ file."
+                },
+                "concept_id": {
+                  "type": "string",
+                  "description": "Denormalised from the question for faster analysis."
+                },
+                "user_answer": {
+                  "type": "string",
+                  "description": "The raw answer the user provided (key for multiple_choice, 'true'/'false', or free text)."
+                },
+                "correct": {
+                  "type": "boolean",
+                  "description": "Whether the user's answer was judged correct."
+                },
+                "time_taken_seconds": {
+                  "type": ["integer", "null"],
+                  "description": "How long the user took to answer, in seconds. Null if not tracked."
+                },
+                "asked_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "ISO 8601 timestamp when this question was presented."
+                }
+              }
+            }
+          },
+          "session_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Fraction of questions answered correctly in this session. Computed at session end."
+          }
+        }
+      }
+    }
+  }
+}
