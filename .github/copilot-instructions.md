@@ -39,11 +39,13 @@ The `<slug>` must be lowercase and hyphen-separated, and must match across all t
    - Generate only the **module-level skeleton** first: modules with titles, descriptions, and empty `lessons: []` arrays.
    - This keeps the initial plan lightweight and avoids generating content the user may not reach.
    - Lessons and concepts are populated **on demand** when the user starts studying a module (see Activity 2 and Activity 4) or explicitly asks to expand a module.
-4. **For small topics** (3 or fewer modules), generate the full plan in one go:
-   - 2–3 lessons per module
-   - 2–4 concepts per lesson
-   - Realistic, descriptive titles and descriptions for every level
-   - Sensible prerequisites where concepts build on each other
+4. **For small topics** (3 or fewer modules), generate the full plan in one go.
+5. **When expanding a module** (either inline or as part of step 4), use enough structure to cover the material properly:
+   - Aim for 2–3 lessons per module, but use more if the module is broad (e.g. a certification domain with many sub-topics).
+   - Aim for 2–4 concepts per lesson, but add more when the lesson covers several distinct ideas that each deserve their own questions.
+   - The goal is **complete coverage of the material**, not hitting a fixed count.
+   - Realistic, descriptive titles and descriptions for every level.
+   - Sensible prerequisites where concepts build on each other.
 5. Save the file as `plans/topic-<slug>.json` following `plans/_schema-learning-plan.json`.
 6. Set `created_at` and `updated_at` to the current date/time.
 7. Confirm to the user which file was created and give a brief summary of the plan structure.
