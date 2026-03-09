@@ -70,8 +70,9 @@ The `<slug>` must be lowercase and hyphen-separated, and must match across all t
 1. Identify the `topic_slug` and, if specified, the target `concept_id` or `module_id`.
 2. Load `plans/topic-<slug>.json` to understand the concept structure.
    - If the target module has an empty `lessons: []` array (skeleton), **expand it first**: generate lessons and concepts for that module, save the updated plan, then continue.
-3. Load `questions/topic-<slug>.json` if it exists; otherwise start a new file.
-4. For each question, generate a well-formed object following `questions/_schema-question.json`:
+3. **Research current content** using the Microsoft Learn MCP server (`microsoft_docs_search` and `microsoft_code_sample_search`) to ensure questions reflect the latest Azure/Microsoft documentation. This is especially important for cloud certification topics where services and features change frequently.
+4. Load `questions/topic-<slug>.json` if it exists; otherwise start a new file.
+5. For each question, generate a well-formed object following `questions/_schema-question.json`:
    - Assign a unique `question_id` in the format `<topic_slug>-Q<zero-padded-number>`.
    - Set `concept_id` to the matching concept.
    - Include a mix of `question_type` values (`multiple_choice`, `true_false`, `free_text`) where appropriate.
@@ -79,9 +80,9 @@ The `<slug>` must be lowercase and hyphen-separated, and must match across all t
    - Write a thorough `explanation` that explains the correct answer and, where relevant, why the wrong answers are wrong.
    - Assign `difficulty` (1–5) based on how conceptually deep the question is.
    - Set `created_at` to now.
-5. Append the new questions to `questions/topic-<slug>.json`.
-6. If `progress/topic-<slug>.json` exists, add entries to its `question_stats` map for each new question (with `times_asked` and `times_correct` at 0 and `last_asked_at` as null).
-7. Report how many questions were added and the total count for each concept covered.
+6. Append the new questions to `questions/topic-<slug>.json`.
+7. If `progress/topic-<slug>.json` exists, add entries to its `question_stats` map for each new question (with `times_asked` and `times_correct` at 0 and `last_asked_at` as null).
+8. Report how many questions were added and the total count for each concept covered.
 
 **Quality criteria:**
 - Do not duplicate questions with the same intent as existing questions in the file.
@@ -141,7 +142,8 @@ The `<slug>` must be lowercase and hyphen-separated, and must match across all t
 5. Evaluate the answer:
    - `multiple_choice` / `true_false`: compare user answer to `correct_answer` (case-insensitive).
    - `free_text`: use your judgement — compare key concepts in the user's answer to the model answer; minor wording differences are fine.
-6. Respond with ✅ or ❌, state the correct answer, and show the `explanation`.
+6. Respond with ✅ or ❌, state the correct answer, and give a **brief explanation** (1–2 sentences summarising why the correct answer is correct).
+   - **Deeper explanation trigger:** If the user has answered **2 or more questions incorrectly on the same concept** within the current session, provide a **longer background explanation** covering the underlying concept in more detail, with examples or analogies, to help them build the missing understanding before continuing.
 7. Update in memory:
    - Increment `times_asked` (and `times_correct` if correct) in `progress/topic-<slug>.json` → `question_stats[question_id]`.
    - Update `last_asked_at` to now in `question_stats`.
