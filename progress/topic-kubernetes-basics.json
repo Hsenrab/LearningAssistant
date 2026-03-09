@@ -1,0 +1,228 @@
+{
+  "topic_slug": "kubernetes-basics",
+  "overall_mastery": 0.52,
+  "concept_mastery": {
+    "M01-L01-C01": {
+      "score": 0.9,
+      "last_updated": "2026-01-08T09:15:00Z",
+      "times_seen": 4,
+      "times_correct": 4
+    },
+    "M01-L01-C02": {
+      "score": 0.5,
+      "last_updated": "2026-01-08T09:15:00Z",
+      "times_seen": 2,
+      "times_correct": 1
+    },
+    "M01-L01-C03": {
+      "score": 0.75,
+      "last_updated": "2026-01-06T10:30:00Z",
+      "times_seen": 2,
+      "times_correct": 2
+    },
+    "M01-L01-C04": {
+      "score": 0.0,
+      "last_updated": "2026-01-08T09:15:00Z",
+      "times_seen": 0,
+      "times_correct": 0
+    },
+    "M01-L02-C01": {
+      "score": 0.5,
+      "last_updated": "2026-01-08T09:15:00Z",
+      "times_seen": 2,
+      "times_correct": 1
+    },
+    "M01-L02-C02": {
+      "score": 0.0,
+      "last_updated": "2026-01-08T09:15:00Z",
+      "times_seen": 0,
+      "times_correct": 0
+    },
+    "M02-L01-C01": {
+      "score": 1.0,
+      "last_updated": "2026-01-08T09:15:00Z",
+      "times_seen": 3,
+      "times_correct": 3
+    },
+    "M02-L01-C02": {
+      "score": 0.33,
+      "last_updated": "2026-01-08T09:15:00Z",
+      "times_seen": 3,
+      "times_correct": 1
+    },
+    "M02-L02-C01": {
+      "score": 0.5,
+      "last_updated": "2026-01-06T10:30:00Z",
+      "times_seen": 2,
+      "times_correct": 1
+    },
+    "M02-L02-C02": {
+      "score": 0.0,
+      "last_updated": "2026-01-08T09:15:00Z",
+      "times_seen": 0,
+      "times_correct": 0
+    },
+    "M03-L01-C01": {
+      "score": 0.5,
+      "last_updated": "2026-01-06T10:30:00Z",
+      "times_seen": 2,
+      "times_correct": 1
+    },
+    "M03-L01-C02": {
+      "score": 0.0,
+      "last_updated": "2026-01-08T09:15:00Z",
+      "times_seen": 0,
+      "times_correct": 0
+    }
+  },
+  "question_stats": {
+    "kubernetes-basics-Q001": {
+      "times_asked": 2,
+      "times_correct": 2,
+      "last_asked_at": "2026-01-08T09:01:00Z"
+    },
+    "kubernetes-basics-Q002": {
+      "times_asked": 1,
+      "times_correct": 0,
+      "last_asked_at": "2026-01-08T09:03:00Z"
+    },
+    "kubernetes-basics-Q003": {
+      "times_asked": 1,
+      "times_correct": 1,
+      "last_asked_at": "2026-01-06T10:03:00Z"
+    },
+    "kubernetes-basics-Q004": {
+      "times_asked": 1,
+      "times_correct": 1,
+      "last_asked_at": "2026-01-08T09:06:00Z"
+    },
+    "kubernetes-basics-Q005": {
+      "times_asked": 2,
+      "times_correct": 2,
+      "last_asked_at": "2026-01-08T09:10:00Z"
+    },
+    "kubernetes-basics-Q006": {
+      "times_asked": 1,
+      "times_correct": 1,
+      "last_asked_at": "2026-01-08T09:13:00Z"
+    },
+    "kubernetes-basics-Q007": {
+      "times_asked": 1,
+      "times_correct": 0,
+      "last_asked_at": "2026-01-06T10:10:00Z"
+    },
+    "kubernetes-basics-Q008": {
+      "times_asked": 0,
+      "times_correct": 0,
+      "last_asked_at": null
+    },
+    "kubernetes-basics-Q009": {
+      "times_asked": 1,
+      "times_correct": 0,
+      "last_asked_at": "2026-01-06T10:14:00Z"
+    },
+    "kubernetes-basics-Q010": {
+      "times_asked": 0,
+      "times_correct": 0,
+      "last_asked_at": null
+    }
+  },
+  "sessions": [
+    {
+      "session_id": "kubernetes-basics-S20260106-001",
+      "started_at": "2026-01-06T10:00:00Z",
+      "ended_at": "2026-01-06T10:30:00Z",
+      "session_score": 0.6,
+      "questions_asked": [
+        {
+          "question_id": "kubernetes-basics-Q001",
+          "concept_id": "M01-L01-C01",
+          "user_answer": "C",
+          "correct": true,
+          "time_taken_seconds": 12,
+          "asked_at": "2026-01-06T10:01:00Z"
+        },
+        {
+          "question_id": "kubernetes-basics-Q003",
+          "concept_id": "M01-L01-C03",
+          "user_answer": "C",
+          "correct": true,
+          "time_taken_seconds": 18,
+          "asked_at": "2026-01-06T10:03:00Z"
+        },
+        {
+          "question_id": "kubernetes-basics-Q005",
+          "concept_id": "M02-L01-C01",
+          "user_answer": "B",
+          "correct": true,
+          "time_taken_seconds": 9,
+          "asked_at": "2026-01-06T10:06:00Z"
+        },
+        {
+          "question_id": "kubernetes-basics-Q007",
+          "concept_id": "M02-L02-C01",
+          "user_answer": "A",
+          "correct": false,
+          "time_taken_seconds": 25,
+          "asked_at": "2026-01-06T10:10:00Z"
+        },
+        {
+          "question_id": "kubernetes-basics-Q009",
+          "concept_id": "M03-L01-C01",
+          "user_answer": "A",
+          "correct": false,
+          "time_taken_seconds": 20,
+          "asked_at": "2026-01-06T10:14:00Z"
+        }
+      ]
+    },
+    {
+      "session_id": "kubernetes-basics-S20260108-001",
+      "started_at": "2026-01-08T09:00:00Z",
+      "ended_at": "2026-01-08T09:15:00Z",
+      "session_score": 0.7,
+      "questions_asked": [
+        {
+          "question_id": "kubernetes-basics-Q001",
+          "concept_id": "M01-L01-C01",
+          "user_answer": "C",
+          "correct": true,
+          "time_taken_seconds": 8,
+          "asked_at": "2026-01-08T09:01:00Z"
+        },
+        {
+          "question_id": "kubernetes-basics-Q002",
+          "concept_id": "M01-L01-C02",
+          "user_answer": "true",
+          "correct": false,
+          "time_taken_seconds": 15,
+          "asked_at": "2026-01-08T09:03:00Z"
+        },
+        {
+          "question_id": "kubernetes-basics-Q004",
+          "concept_id": "M01-L02-C01",
+          "user_answer": "The kubelet runs on each node and manages containers.",
+          "correct": true,
+          "time_taken_seconds": 45,
+          "asked_at": "2026-01-08T09:06:00Z"
+        },
+        {
+          "question_id": "kubernetes-basics-Q005",
+          "concept_id": "M02-L01-C01",
+          "user_answer": "B",
+          "correct": true,
+          "time_taken_seconds": 7,
+          "asked_at": "2026-01-08T09:10:00Z"
+        },
+        {
+          "question_id": "kubernetes-basics-Q006",
+          "concept_id": "M02-L01-C02",
+          "user_answer": "B",
+          "correct": true,
+          "time_taken_seconds": 22,
+          "asked_at": "2026-01-08T09:13:00Z"
+        }
+      ]
+    }
+  ]
+}

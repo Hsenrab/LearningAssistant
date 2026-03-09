@@ -1,0 +1,162 @@
+{
+  "topic_slug": "kubernetes-basics",
+  "questions": [
+    {
+      "question_id": "kubernetes-basics-Q001",
+      "concept_id": "M01-L01-C01",
+      "question_type": "multiple_choice",
+      "question_text": "Which Kubernetes component is the single point of contact for all REST API calls and is the only component that directly reads from and writes to etcd?",
+      "options": [
+        { "key": "A", "text": "kube-scheduler" },
+        { "key": "B", "text": "kube-controller-manager" },
+        { "key": "C", "text": "kube-apiserver" },
+        { "key": "D", "text": "kubelet" }
+      ],
+      "correct_answer": "C",
+      "explanation": "The kube-apiserver is the front-end of the control plane. All other components — including kubelet, kube-scheduler, and kube-controller-manager — communicate with the cluster exclusively through the API server. Only the API server talks to etcd.",
+      "difficulty": 1,
+      "tags": ["architecture", "control-plane"],
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "question_id": "kubernetes-basics-Q002",
+      "concept_id": "M01-L01-C02",
+      "question_type": "true_false",
+      "question_text": "True or False: etcd is only used by Kubernetes as a message queue for scheduling events.",
+      "options": [
+        { "key": "true", "text": "True" },
+        { "key": "false", "text": "False" }
+      ],
+      "correct_answer": "false",
+      "explanation": "etcd is a distributed key-value store and serves as Kubernetes' primary datastore for all cluster state (desired state, current state, config). It is not a message queue. The kube-scheduler uses watch mechanisms on the API server, not etcd directly.",
+      "difficulty": 2,
+      "tags": ["architecture", "control-plane", "etcd"],
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "question_id": "kubernetes-basics-Q003",
+      "concept_id": "M01-L01-C03",
+      "question_type": "multiple_choice",
+      "question_text": "A new Pod has been created but no node has been assigned to it yet. Which control-plane component is responsible for selecting a node for this Pod?",
+      "options": [
+        { "key": "A", "text": "kube-apiserver" },
+        { "key": "B", "text": "kube-controller-manager" },
+        { "key": "C", "text": "kube-scheduler" },
+        { "key": "D", "text": "kubelet" }
+      ],
+      "correct_answer": "C",
+      "explanation": "The kube-scheduler watches for Pods with no assigned node (nodeName is empty). It evaluates each candidate node against the Pod's resource requests, affinity rules, taints/tolerations, and other constraints, then binds the Pod to the best-fit node.",
+      "difficulty": 1,
+      "tags": ["architecture", "control-plane", "scheduling"],
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "question_id": "kubernetes-basics-Q004",
+      "concept_id": "M01-L02-C01",
+      "question_type": "free_text",
+      "question_text": "What is the kubelet, and what is its primary responsibility on a worker node?",
+      "correct_answer": "The kubelet is an agent running on every worker node. Its primary responsibility is to ensure that the containers described in PodSpecs (received from the API server) are running and healthy on that node. It reports the node and Pod status back to the control plane.",
+      "explanation": "The kubelet is the bridge between the control plane and the container runtime on a node. It watches the API server for Pods scheduled to its node, instructs the container runtime (e.g. containerd) to start/stop containers, and reports health back via the API server.",
+      "difficulty": 2,
+      "tags": ["architecture", "node-components"],
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "question_id": "kubernetes-basics-Q005",
+      "concept_id": "M02-L01-C01",
+      "question_type": "multiple_choice",
+      "question_text": "Which of the following best describes a Kubernetes Pod?",
+      "options": [
+        { "key": "A", "text": "A single running container managed directly by the kubelet" },
+        { "key": "B", "text": "The smallest deployable unit, consisting of one or more containers that share network and storage" },
+        { "key": "C", "text": "A virtual machine provisioned by Kubernetes to run workloads" },
+        { "key": "D", "text": "A Kubernetes object that automatically scales containers based on CPU usage" }
+      ],
+      "correct_answer": "B",
+      "explanation": "A Pod is the atomic unit of scheduling in Kubernetes. It wraps one or more containers that are co-located, share the same network namespace (IP and ports), and can share storage volumes. Pods are ephemeral — they are not rescheduled if they fail; higher-level controllers like Deployments handle that.",
+      "difficulty": 1,
+      "tags": ["workloads", "pods"],
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "question_id": "kubernetes-basics-Q006",
+      "concept_id": "M02-L01-C02",
+      "question_type": "multiple_choice",
+      "question_text": "A Pod's status shows 'CrashLoopBackOff'. What does this indicate?",
+      "options": [
+        { "key": "A", "text": "The Pod is waiting for a node to become available" },
+        { "key": "B", "text": "The container inside the Pod keeps exiting and Kubernetes keeps restarting it with increasing back-off delays" },
+        { "key": "C", "text": "The Pod has successfully completed its work and is shutting down" },
+        { "key": "D", "text": "A network policy is blocking traffic to the Pod" }
+      ],
+      "correct_answer": "B",
+      "explanation": "CrashLoopBackOff means the container is starting, crashing (exiting with a non-zero code), and being restarted repeatedly. Kubernetes applies exponential back-off between restart attempts. Common causes: application error at startup, missing config/secret, or an incorrect entrypoint command.",
+      "difficulty": 2,
+      "tags": ["workloads", "pods", "troubleshooting", "lifecycle"],
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "question_id": "kubernetes-basics-Q007",
+      "concept_id": "M02-L02-C01",
+      "question_type": "multiple_choice",
+      "question_text": "You run `kubectl apply -f deployment.yaml` and specify `replicas: 3`. How many ReplicaSets does Kubernetes create initially?",
+      "options": [
+        { "key": "A", "text": "3 — one per replica" },
+        { "key": "B", "text": "1 — a single ReplicaSet managing all 3 replicas" },
+        { "key": "C", "text": "0 — Deployments manage Pods directly without a ReplicaSet" },
+        { "key": "D", "text": "It depends on the update strategy" }
+      ],
+      "correct_answer": "B",
+      "explanation": "A Deployment creates exactly one ReplicaSet, which in turn ensures 3 Pod replicas are running. During a rolling update, a second ReplicaSet is created temporarily (to hold new replicas) while the old one is scaled down. After the rollout completes, only one active ReplicaSet remains.",
+      "difficulty": 2,
+      "tags": ["workloads", "deployments"],
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "question_id": "kubernetes-basics-Q008",
+      "concept_id": "M02-L02-C02",
+      "question_type": "free_text",
+      "question_text": "What kubectl command would you run to revert a Deployment named 'web-app' to its previous version?",
+      "correct_answer": "kubectl rollout undo deployment/web-app",
+      "explanation": "kubectl rollout undo deployment/<name> rolls back to the previous revision. You can also specify a target revision with --to-revision=<n>. Kubernetes retains a configurable number of old ReplicaSets (controlled by revisionHistoryLimit in the Deployment spec) to support rollbacks.",
+      "difficulty": 3,
+      "tags": ["workloads", "deployments", "cli", "rollback"],
+      "created_at": "2026-01-01T00:00:00Z"
+    },
+    {
+      "question_id": "kubernetes-basics-Q009",
+      "concept_id": "M03-L01-C01",
+      "question_type": "multiple_choice",
+      "question_text": "Which Service type exposes your application only inside the Kubernetes cluster and is the default when no type is specified?",
+      "options": [
+        { "key": "A", "text": "NodePort" },
+        { "key": "B", "text": "LoadBalancer" },
+        { "key": "C", "text": "ExternalName" },
+        { "key": "D", "text": "ClusterIP" }
+      ],
+      "correct_answer": "D",
+      "explanation": "ClusterIP allocates a virtual IP that is reachable only within the cluster. It is the default type. NodePort adds an external port on each node. LoadBalancer provisions a cloud load balancer. ExternalName maps the Service to an external DNS name.",
+      "difficulty": 1,
+      "tags": ["networking", "services"],
+      "created_at": "2026-01-01T00:00:00Z",
+      "last_asked_at": null,
+      "times_asked": 0,
+      "times_correct": 0
+    },
+    {
+      "question_id": "kubernetes-basics-Q010",
+      "concept_id": "M03-L01-C02",
+      "question_type": "true_false",
+      "question_text": "True or False: A LoadBalancer Service in Kubernetes also creates a NodePort and ClusterIP for the same Service.",
+      "options": [
+        { "key": "true", "text": "True" },
+        { "key": "false", "text": "False" }
+      ],
+      "correct_answer": "true",
+      "explanation": "LoadBalancer is a superset: it creates a ClusterIP, then a NodePort on top of it, then requests an external load balancer from the cloud provider that forwards traffic to those NodePorts. You can verify this by inspecting the Service with kubectl get svc — it will show all three.",
+      "difficulty": 3,
+      "tags": ["networking", "services"],
+      "created_at": "2026-01-01T00:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$comment": "Schema for a LearningAssistant configuration file. 'default.json' is loaded for all topics. A topic-specific file (e.g. kubernetes-basics.json) can override individual fields.",
+  "type": "object",
+  "required": [
+    "repetition_weight",
+    "min_interval_days",
+    "mastery_threshold",
+    "session_length",
+    "difficulty_adjustment"
+  ],
+  "properties": {
+    "repetition_weight": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Fraction of questions in a session drawn from already-seen questions. The complement (1 - repetition_weight) is the novelty weight. 0.0 = always introduce new questions, 1.0 = always revisit old questions.",
+      "default": 0.4
+    },
+    "min_interval_days": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Minimum number of days that must pass before a question can be repeated. Implements the spaced-repetition floor.",
+      "default": 1
+    },
+    "mastery_threshold": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Mastery score above which a concept is considered 'mastered' and receives lower priority in question selection.",
+      "default": 0.8
+    },
+    "session_length": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Default number of questions per learning session. Can be overridden at session start.",
+      "default": 10
+    },
+    "difficulty_adjustment": {
+      "type": "boolean",
+      "description": "If true, the scheduler adapts the difficulty range of questions based on recent performance.",
+      "default": true
+    },
+    "difficulty_ramp_rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "How quickly difficulty is increased after correct answers (or decreased after incorrect). 0.0 = no ramp, 1.0 = maximum ramp. Only used when difficulty_adjustment is true.",
+      "default": 0.2
+    },
+    "starting_difficulty": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "The difficulty level used when a user first starts a topic and there is no performance history.",
+      "default": 2
+    },
+    "low_mastery_boost": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Extra weight given to questions from concepts with mastery score below mastery_threshold. Higher values focus more heavily on weak areas.",
+      "default": 0.3
+    }
+  }
+}

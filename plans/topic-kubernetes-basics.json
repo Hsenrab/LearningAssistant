@@ -1,0 +1,165 @@
+{
+  "topic_slug": "kubernetes-basics",
+  "title": "Kubernetes Basics",
+  "description": "An introduction to Kubernetes covering its architecture, core API objects, networking model, and common operational workflows. By the end of this plan you will be able to deploy a containerised application, expose it via a Service, and troubleshoot common cluster issues.",
+  "created_at": "2026-01-01T00:00:00Z",
+  "updated_at": "2026-01-01T00:00:00Z",
+  "modules": [
+    {
+      "module_id": "M01",
+      "title": "Cluster Architecture",
+      "description": "How a Kubernetes cluster is structured: the control plane components that manage state and the worker nodes that run workloads.",
+      "lessons": [
+        {
+          "lesson_id": "M01-L01",
+          "title": "The Control Plane",
+          "description": "The set of components that make global decisions about the cluster (scheduling, detecting and responding to cluster events).",
+          "concepts": [
+            {
+              "concept_id": "M01-L01-C01",
+              "title": "kube-apiserver",
+              "description": "The front-end for the Kubernetes control plane. It exposes the Kubernetes API, validates and processes REST requests, and is the only component that reads from and writes to etcd.",
+              "resources": [
+                {
+                  "label": "Kubernetes docs: kube-apiserver",
+                  "url": "https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/"
+                }
+              ]
+            },
+            {
+              "concept_id": "M01-L01-C02",
+              "title": "etcd",
+              "description": "A consistent and highly-available key-value store used as Kubernetes' backing store for all cluster data. All cluster state and configuration live here.",
+              "prerequisites": ["M01-L01-C01"],
+              "resources": [
+                {
+                  "label": "etcd documentation",
+                  "url": "https://etcd.io/docs/"
+                }
+              ]
+            },
+            {
+              "concept_id": "M01-L01-C03",
+              "title": "kube-scheduler",
+              "description": "Watches for newly created Pods that have no assigned node and selects a node for them to run on based on resource requirements, affinity rules, and other constraints.",
+              "prerequisites": ["M01-L01-C01"]
+            },
+            {
+              "concept_id": "M01-L01-C04",
+              "title": "kube-controller-manager",
+              "description": "Runs built-in controller loops (e.g. ReplicaSet controller, Node controller, Job controller). Each controller watches the current state of the cluster and drives it towards the desired state.",
+              "prerequisites": ["M01-L01-C01", "M01-L01-C03"]
+            }
+          ]
+        },
+        {
+          "lesson_id": "M01-L02",
+          "title": "Worker Nodes",
+          "description": "The machines (physical or virtual) that run containerised workloads. Each node runs two mandatory components.",
+          "concepts": [
+            {
+              "concept_id": "M01-L02-C01",
+              "title": "kubelet",
+              "description": "An agent that runs on every node. It ensures containers described in PodSpecs are running and healthy, communicating with the kube-apiserver to receive work and report status.",
+              "prerequisites": ["M01-L01-C01"]
+            },
+            {
+              "concept_id": "M01-L02-C02",
+              "title": "kube-proxy",
+              "description": "Maintains network rules on nodes. These rules allow network communication to Pods from inside or outside the cluster. kube-proxy uses the OS packet filtering layer (e.g. iptables or IPVS).",
+              "prerequisites": ["M01-L02-C01"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "module_id": "M02",
+      "title": "Core Workload Objects",
+      "description": "The fundamental Kubernetes objects used to define and manage containerised workloads.",
+      "lessons": [
+        {
+          "lesson_id": "M02-L01",
+          "title": "Pods",
+          "description": "The smallest deployable unit in Kubernetes. A Pod wraps one or more containers that share network and storage.",
+          "concepts": [
+            {
+              "concept_id": "M02-L01-C01",
+              "title": "Pod definition",
+              "description": "A Pod spec declares the desired containers, their images, exposed ports, environment variables, volume mounts, and resource requests/limits.",
+              "resources": [
+                {
+                  "label": "Kubernetes docs: Pods",
+                  "url": "https://kubernetes.io/docs/concepts/workloads/pods/"
+                }
+              ]
+            },
+            {
+              "concept_id": "M02-L01-C02",
+              "title": "Pod lifecycle",
+              "description": "The stages a Pod moves through: Pending → Running → Succeeded / Failed / Unknown. Understanding lifecycle is essential for troubleshooting stuck or crashing Pods.",
+              "prerequisites": ["M02-L01-C01"]
+            }
+          ]
+        },
+        {
+          "lesson_id": "M02-L02",
+          "title": "Deployments",
+          "description": "A higher-level object that manages a ReplicaSet to ensure a specified number of Pod replicas are running. Deployments support rolling updates and rollbacks.",
+          "concepts": [
+            {
+              "concept_id": "M02-L02-C01",
+              "title": "Deployment spec",
+              "description": "Defines the desired state: number of replicas, Pod template, and update strategy (RollingUpdate or Recreate).",
+              "prerequisites": ["M02-L01-C01"],
+              "resources": [
+                {
+                  "label": "Kubernetes docs: Deployments",
+                  "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/"
+                }
+              ]
+            },
+            {
+              "concept_id": "M02-L02-C02",
+              "title": "Rolling updates and rollbacks",
+              "description": "A rolling update replaces Pods incrementally so the application stays available. If a rollout fails, kubectl rollout undo reverses to the previous revision.",
+              "prerequisites": ["M02-L02-C01"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "module_id": "M03",
+      "title": "Networking and Service Discovery",
+      "description": "How Pods communicate with each other and how external clients reach workloads inside the cluster.",
+      "lessons": [
+        {
+          "lesson_id": "M03-L01",
+          "title": "Services",
+          "description": "An abstract way to expose an application running as a set of Pods. Services provide a stable IP and DNS name that load-balances across healthy Pod replicas.",
+          "concepts": [
+            {
+              "concept_id": "M03-L01-C01",
+              "title": "ClusterIP Service",
+              "description": "The default Service type. Exposes the Service on a cluster-internal IP, reachable only from within the cluster.",
+              "prerequisites": ["M02-L01-C01"],
+              "resources": [
+                {
+                  "label": "Kubernetes docs: Service",
+                  "url": "https://kubernetes.io/docs/concepts/services-networking/service/"
+                }
+              ]
+            },
+            {
+              "concept_id": "M03-L01-C02",
+              "title": "NodePort and LoadBalancer Services",
+              "description": "NodePort exposes the Service on each node's IP at a static port. LoadBalancer provisions an external load balancer (cloud provider) and assigns a public IP.",
+              "prerequisites": ["M03-L01-C01"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
