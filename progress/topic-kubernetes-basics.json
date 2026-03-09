@@ -75,6 +75,58 @@
       "times_correct": 0
     }
   },
+  "question_stats": {
+    "kubernetes-basics-Q001": {
+      "times_asked": 2,
+      "times_correct": 2,
+      "last_asked_at": "2026-01-08T09:01:00Z"
+    },
+    "kubernetes-basics-Q002": {
+      "times_asked": 1,
+      "times_correct": 0,
+      "last_asked_at": "2026-01-08T09:03:00Z"
+    },
+    "kubernetes-basics-Q003": {
+      "times_asked": 1,
+      "times_correct": 1,
+      "last_asked_at": "2026-01-06T10:03:00Z"
+    },
+    "kubernetes-basics-Q004": {
+      "times_asked": 1,
+      "times_correct": 1,
+      "last_asked_at": "2026-01-08T09:06:00Z"
+    },
+    "kubernetes-basics-Q005": {
+      "times_asked": 2,
+      "times_correct": 2,
+      "last_asked_at": "2026-01-08T09:10:00Z"
+    },
+    "kubernetes-basics-Q006": {
+      "times_asked": 1,
+      "times_correct": 1,
+      "last_asked_at": "2026-01-08T09:13:00Z"
+    },
+    "kubernetes-basics-Q007": {
+      "times_asked": 1,
+      "times_correct": 0,
+      "last_asked_at": "2026-01-06T10:10:00Z"
+    },
+    "kubernetes-basics-Q008": {
+      "times_asked": 0,
+      "times_correct": 0,
+      "last_asked_at": null
+    },
+    "kubernetes-basics-Q009": {
+      "times_asked": 1,
+      "times_correct": 0,
+      "last_asked_at": "2026-01-06T10:14:00Z"
+    },
+    "kubernetes-basics-Q010": {
+      "times_asked": 0,
+      "times_correct": 0,
+      "last_asked_at": null
+    }
+  },
   "sessions": [
     {
       "session_id": "kubernetes-basics-S20260106-001",

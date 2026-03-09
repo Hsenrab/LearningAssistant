@@ -16,10 +16,7 @@
       "explanation": "The kube-apiserver is the front-end of the control plane. All other components — including kubelet, kube-scheduler, and kube-controller-manager — communicate with the cluster exclusively through the API server. Only the API server talks to etcd.",
       "difficulty": 1,
       "tags": ["architecture", "control-plane"],
-      "created_at": "2026-01-01T00:00:00Z",
-      "last_asked_at": null,
-      "times_asked": 0,
-      "times_correct": 0
+      "created_at": "2026-01-01T00:00:00Z"
     },
     {
       "question_id": "kubernetes-basics-Q002",
@@ -34,10 +31,7 @@
       "explanation": "etcd is a distributed key-value store and serves as Kubernetes' primary datastore for all cluster state (desired state, current state, config). It is not a message queue. The kube-scheduler uses watch mechanisms on the API server, not etcd directly.",
       "difficulty": 2,
       "tags": ["architecture", "control-plane", "etcd"],
-      "created_at": "2026-01-01T00:00:00Z",
-      "last_asked_at": null,
-      "times_asked": 0,
-      "times_correct": 0
+      "created_at": "2026-01-01T00:00:00Z"
     },
     {
       "question_id": "kubernetes-basics-Q003",
@@ -54,10 +48,7 @@
       "explanation": "The kube-scheduler watches for Pods with no assigned node (nodeName is empty). It evaluates each candidate node against the Pod's resource requests, affinity rules, taints/tolerations, and other constraints, then binds the Pod to the best-fit node.",
       "difficulty": 1,
       "tags": ["architecture", "control-plane", "scheduling"],
-      "created_at": "2026-01-01T00:00:00Z",
-      "last_asked_at": null,
-      "times_asked": 0,
-      "times_correct": 0
+      "created_at": "2026-01-01T00:00:00Z"
     },
     {
       "question_id": "kubernetes-basics-Q004",
@@ -68,10 +59,7 @@
       "explanation": "The kubelet is the bridge between the control plane and the container runtime on a node. It watches the API server for Pods scheduled to its node, instructs the container runtime (e.g. containerd) to start/stop containers, and reports health back via the API server.",
       "difficulty": 2,
       "tags": ["architecture", "node-components"],
-      "created_at": "2026-01-01T00:00:00Z",
-      "last_asked_at": null,
-      "times_asked": 0,
-      "times_correct": 0
+      "created_at": "2026-01-01T00:00:00Z"
     },
     {
       "question_id": "kubernetes-basics-Q005",
@@ -88,10 +76,7 @@
       "explanation": "A Pod is the atomic unit of scheduling in Kubernetes. It wraps one or more containers that are co-located, share the same network namespace (IP and ports), and can share storage volumes. Pods are ephemeral — they are not rescheduled if they fail; higher-level controllers like Deployments handle that.",
       "difficulty": 1,
       "tags": ["workloads", "pods"],
-      "created_at": "2026-01-01T00:00:00Z",
-      "last_asked_at": null,
-      "times_asked": 0,
-      "times_correct": 0
+      "created_at": "2026-01-01T00:00:00Z"
     },
     {
       "question_id": "kubernetes-basics-Q006",
@@ -108,10 +93,7 @@
       "explanation": "CrashLoopBackOff means the container is starting, crashing (exiting with a non-zero code), and being restarted repeatedly. Kubernetes applies exponential back-off between restart attempts. Common causes: application error at startup, missing config/secret, or an incorrect entrypoint command.",
       "difficulty": 2,
       "tags": ["workloads", "pods", "troubleshooting", "lifecycle"],
-      "created_at": "2026-01-01T00:00:00Z",
-      "last_asked_at": null,
-      "times_asked": 0,
-      "times_correct": 0
+      "created_at": "2026-01-01T00:00:00Z"
     },
     {
       "question_id": "kubernetes-basics-Q007",
@@ -128,10 +110,7 @@
       "explanation": "A Deployment creates exactly one ReplicaSet, which in turn ensures 3 Pod replicas are running. During a rolling update, a second ReplicaSet is created temporarily (to hold new replicas) while the old one is scaled down. After the rollout completes, only one active ReplicaSet remains.",
       "difficulty": 2,
       "tags": ["workloads", "deployments"],
-      "created_at": "2026-01-01T00:00:00Z",
-      "last_asked_at": null,
-      "times_asked": 0,
-      "times_correct": 0
+      "created_at": "2026-01-01T00:00:00Z"
     },
     {
       "question_id": "kubernetes-basics-Q008",
@@ -142,10 +121,7 @@
       "explanation": "kubectl rollout undo deployment/<name> rolls back to the previous revision. You can also specify a target revision with --to-revision=<n>. Kubernetes retains a configurable number of old ReplicaSets (controlled by revisionHistoryLimit in the Deployment spec) to support rollbacks.",
       "difficulty": 3,
       "tags": ["workloads", "deployments", "cli", "rollback"],
-      "created_at": "2026-01-01T00:00:00Z",
-      "last_asked_at": null,
-      "times_asked": 0,
-      "times_correct": 0
+      "created_at": "2026-01-01T00:00:00Z"
     },
     {
       "question_id": "kubernetes-basics-Q009",
@@ -180,10 +156,7 @@
       "explanation": "LoadBalancer is a superset: it creates a ClusterIP, then a NodePort on top of it, then requests an external load balancer from the cloud provider that forwards traffic to those NodePorts. You can verify this by inspecting the Service with kubectl get svc — it will show all three.",
       "difficulty": 3,
       "tags": ["networking", "services"],
-      "created_at": "2026-01-01T00:00:00Z",
-      "last_asked_at": null,
-      "times_asked": 0,
-      "times_correct": 0
+      "created_at": "2026-01-01T00:00:00Z"
     }
   ]
 }

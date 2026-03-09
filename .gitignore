@@ -1,0 +1,15 @@
+# User progress (personal to each learner — generated during sessions)
+progress/topic-*.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor settings
+.vscode/
+*.code-workspace
+
+# Temp / backup files
+*.bak
+*.tmp

@@ -70,9 +70,10 @@ The `<slug>` must be lowercase and hyphen-separated, and must match across all t
    - For `multiple_choice`: provide 4 options (A–D), with one clearly correct and three plausible distractors.
    - Write a thorough `explanation` that explains the correct answer and, where relevant, why the wrong answers are wrong.
    - Assign `difficulty` (1–5) based on how conceptually deep the question is.
-   - Set `created_at` to now; set `last_asked_at` to null; set `times_asked` and `times_correct` to 0.
+   - Set `created_at` to now.
 5. Append the new questions to `questions/topic-<slug>.json`.
-6. Report how many questions were added and the total count for each concept covered.
+6. If `progress/topic-<slug>.json` exists, add entries to its `question_stats` map for each new question (with `times_asked` and `times_correct` at 0 and `last_asked_at` as null).
+7. Report how many questions were added and the total count for each concept covered.
 
 **Quality criteria:**
 - Do not duplicate questions with the same intent as existing questions in the file.
@@ -109,12 +110,12 @@ The `<slug>` must be lowercase and hyphen-separated, and must match across all t
 **Steps:**
 
 1. Load `plans/topic-<slug>.json`, `questions/topic-<slug>.json`, `progress/topic-<slug>.json`, and `config/default.json`.
-   - Create `progress/topic-<slug>.json` if it does not exist (empty mastery map, empty sessions array).
+   - Create `progress/topic-<slug>.json` if it does not exist (empty mastery map, empty `question_stats` map, empty sessions array).
 2. Determine session length from `config.session_length` (default: 10) unless the user specifies differently.
 3. **Select the first question** using the adaptive algorithm:
 
    **Candidate filtering:**
-   - Exclude questions where `last_asked_at` is within `config.min_interval_days` days of now.
+   - Exclude questions where `question_stats[question_id].last_asked_at` (in the progress file) is within `config.min_interval_days` days of now.
    - If `difficulty_adjustment` is true, prefer questions within ±1 difficulty level of the user's current effective difficulty. Start at `config.starting_difficulty` if no history exists.
 
    **Scoring each candidate:**
@@ -133,8 +134,8 @@ The `<slug>` must be lowercase and hyphen-separated, and must match across all t
    - `free_text`: use your judgement — compare key concepts in the user's answer to the model answer; minor wording differences are fine.
 6. Respond with ✅ or ❌, state the correct answer, and show the `explanation`.
 7. Update in memory:
-   - Increment `times_asked` (and `times_correct` if correct) on the question.
-   - Update `last_asked_at` to now.
+   - Increment `times_asked` (and `times_correct` if correct) in `progress/topic-<slug>.json` → `question_stats[question_id]`.
+   - Update `last_asked_at` to now in `question_stats`.
    - Append to the current session's `questions_asked` array.
 8. Ask: *"Ready for the next question?"* or automatically continue if the user has indicated they want to go fast.
 9. Repeat until `session_length` questions have been asked or the user ends the session.
@@ -146,7 +147,7 @@ The `<slug>` must be lowercase and hyphen-separated, and must match across all t
       ```
       "Recent" = last 3 sessions.
     - Recompute `overall_mastery` as the unweighted average of all concept mastery scores.
-    - Save `progress/topic-<slug>.json` and `questions/topic-<slug>.json`.
+    - Save `progress/topic-<slug>.json`.
     - Give the user a session summary: score, strongest concept, weakest concept.
 
 ---
