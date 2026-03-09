@@ -1,0 +1,39 @@
+{
+  "topic_slug": "az-104",
+  "title": "AZ-104: Microsoft Azure Administrator",
+  "description": "Comprehensive preparation for the AZ-104 certification exam. Covers managing Azure identities and governance, implementing and managing storage, deploying and managing Azure compute resources, configuring and managing virtual networking, and monitoring and maintaining Azure resources.",
+  "created_at": "2026-03-09T00:00:00Z",
+  "updated_at": "2026-03-09T00:00:00Z",
+  "modules": [
+    {
+      "module_id": "M01",
+      "title": "Manage Azure Identities and Governance",
+      "description": "Covers Microsoft Entra ID (Azure AD) users, groups, and administrative units; role-based access control (RBAC); subscriptions and governance with Azure Policy, resource locks, and management groups. Approximately 15–20% of the exam.",
+      "lessons": []
+    },
+    {
+      "module_id": "M02",
+      "title": "Implement and Manage Storage",
+      "description": "Covers configuring Azure Storage accounts, blob storage, access tiers, lifecycle management, Azure Files, Azure File Sync, and storage security with SAS tokens, access keys, and Microsoft Entra authorization. Approximately 15–20% of the exam.",
+      "lessons": []
+    },
+    {
+      "module_id": "M03",
+      "title": "Deploy and Manage Azure Compute Resources",
+      "description": "Covers creating and configuring VMs, availability sets, scale sets, Azure App Service plans and web apps, Azure Container Instances, Azure Container Apps, and Azure Kubernetes Service (AKS). Approximately 20–25% of the exam.",
+      "lessons": []
+    },
+    {
+      "module_id": "M04",
+      "title": "Configure and Manage Virtual Networking",
+      "description": "Covers virtual networks, subnets, peering, VPN gateways, ExpressRoute, Network Security Groups (NSGs), Azure DNS, Azure Load Balancer, Application Gateway, and network routing including UDRs and service endpoints. Approximately 20–25% of the exam.",
+      "lessons": []
+    },
+    {
+      "module_id": "M05",
+      "title": "Monitor and Maintain Azure Resources",
+      "description": "Covers Azure Monitor, Log Analytics, alerts, action groups, Azure Backup, Recovery Services vaults, and Azure Site Recovery. Also includes monitoring costs, interpreting metrics, and configuring diagnostic settings. Approximately 10–15% of the exam.",
+      "lessons": []
+    }
+  ]
+}

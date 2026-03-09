@@ -35,20 +35,25 @@ The `<slug>` must be lowercase and hyphen-separated, and must match across all t
 1. Derive a `topic_slug`: lowercase, hyphen-separated (e.g. `docker-fundamentals`).
 2. Check whether `plans/topic-<slug>.json` already exists.
    - If it exists, inform the user and ask if they want to overwrite or extend it.
-3. Generate a learning plan with at minimum:
-   - 3 modules
+3. **For large topics** (e.g. certification exams, broad domains with 5+ modules):
+   - Generate only the **module-level skeleton** first: modules with titles, descriptions, and empty `lessons: []` arrays.
+   - This keeps the initial plan lightweight and avoids generating content the user may not reach.
+   - Lessons and concepts are populated **on demand** when the user starts studying a module (see Activity 2 and Activity 4) or explicitly asks to expand a module.
+4. **For small topics** (3 or fewer modules), generate the full plan in one go:
    - 2–3 lessons per module
    - 2–4 concepts per lesson
    - Realistic, descriptive titles and descriptions for every level
    - Sensible prerequisites where concepts build on each other
-4. Save the file as `plans/topic-<slug>.json` following `plans/_schema-learning-plan.json`.
-5. Set `created_at` and `updated_at` to the current date/time.
-6. Confirm to the user which file was created and give a brief summary of the plan structure.
+5. Save the file as `plans/topic-<slug>.json` following `plans/_schema-learning-plan.json`.
+6. Set `created_at` and `updated_at` to the current date/time.
+7. Confirm to the user which file was created and give a brief summary of the plan structure.
+8. If a skeleton was created, tell the user which modules are available and ask which one they'd like to expand first.
 
 **Quality criteria:**
 - Concept descriptions must be concise (2–3 sentences), factually accurate, and self-contained.
 - Module/lesson titles should reflect meaningful groupings — not just numbered sections.
 - Prerequisites should reference `concept_id` values defined within the same plan.
+- For skeleton plans, module descriptions should clearly convey scope so the user can choose where to start.
 
 ---
 
@@ -60,8 +65,9 @@ The `<slug>` must be lowercase and hyphen-separated, and must match across all t
 
 **Steps:**
 
-1. Identify the `topic_slug` and, if specified, the target `concept_id`.
+1. Identify the `topic_slug` and, if specified, the target `concept_id` or `module_id`.
 2. Load `plans/topic-<slug>.json` to understand the concept structure.
+   - If the target module has an empty `lessons: []` array (skeleton), **expand it first**: generate lessons and concepts for that module, save the updated plan, then continue.
 3. Load `questions/topic-<slug>.json` if it exists; otherwise start a new file.
 4. For each question, generate a well-formed object following `questions/_schema-question.json`:
    - Assign a unique `question_id` in the format `<topic_slug>-Q<zero-padded-number>`.
@@ -111,6 +117,7 @@ The `<slug>` must be lowercase and hyphen-separated, and must match across all t
 
 1. Load `plans/topic-<slug>.json`, `questions/topic-<slug>.json`, `progress/topic-<slug>.json`, and `config/default.json`.
    - Create `progress/topic-<slug>.json` if it does not exist (empty mastery map, empty `question_stats` map, empty sessions array).
+   - If the user specified a module and its `lessons` array is empty (skeleton), **expand that module first** (generate lessons, concepts, and questions), then continue with the session.
 2. Determine session length from `config.session_length` (default: 10) unless the user specifies differently.
 3. **Select the first question** using the adaptive algorithm:
 
